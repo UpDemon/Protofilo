@@ -21,7 +21,7 @@
             overflow-x: hidden;
         }
 
-        /* خلفية متطورة */
+        /* خلفية */
         .bg {
             position: fixed;
             inset: 0;
@@ -76,15 +76,36 @@
         /* ===== HERO ===== */
         .hero {
             text-align: center;
-            padding: 50px 0 30px;
+            padding: 30px 0 20px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-            position: relative;
+        }
+
+        .hero-top {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .hero .avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.08);
+            object-fit: cover;
+            transition: 0.3s;
+        }
+
+        .hero .avatar:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: scale(1.03);
         }
 
         .hero .name {
-            font-size: 5.5em;
+            font-size: 4.2em;
             font-weight: 900;
-            letter-spacing: 6px;
+            letter-spacing: 4px;
             background: linear-gradient(135deg, #e8e0d8 0%, #a89888 50%, #e8e0d8 100%);
             background-size: 200% auto;
             -webkit-background-clip: text;
@@ -93,39 +114,34 @@
         }
 
         @keyframes shimmer {
-            0% {
-                background-position: 0% center;
-            }
-            100% {
-                background-position: 200% center;
-            }
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
         }
 
         .hero .title {
-            font-size: 1.3em;
+            font-size: 1.1em;
             color: #888;
             font-weight: 300;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             margin-top: 2px;
         }
 
         .hero .flag {
-            font-size: 0.95em;
+            font-size: 0.9em;
             color: #666;
-            margin-top: 4px;
-            letter-spacing: 1px;
+            margin-top: 2px;
         }
 
-        /* ===== STATUS MANUAL ===== */
+        /* ===== STATUS ===== */
         .status-box {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 20px;
-            padding: 18px 32px;
-            margin: 25px auto 0;
+            padding: 14px 28px;
+            margin: 20px auto 0;
             display: inline-flex;
             align-items: center;
-            gap: 28px;
+            gap: 24px;
             flex-wrap: wrap;
             justify-content: center;
             backdrop-filter: blur(6px);
@@ -137,33 +153,18 @@
             border-radius: 50%;
             display: inline-block;
             transition: 0.3s;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
         }
 
-        .status-online {
-            background: #43b581;
-            box-shadow: 0 0 25px rgba(67, 181, 129, 0.25);
-        }
-        .status-idle {
-            background: #faa61a;
-            box-shadow: 0 0 25px rgba(250, 166, 26, 0.25);
-        }
-        .status-dnd {
-            background: #f04747;
-            box-shadow: 0 0 25px rgba(240, 71, 71, 0.25);
-        }
-        .status-offline {
-            background: #747f8d;
-        }
+        .status-online { background: #43b581; box-shadow: 0 0 25px rgba(67, 181, 129, 0.25); }
+        .status-idle { background: #faa61a; box-shadow: 0 0 25px rgba(250, 166, 26, 0.25); }
+        .status-dnd { background: #f04747; box-shadow: 0 0 25px rgba(240, 71, 71, 0.25); }
+        .status-offline { background: #747f8d; }
 
         .status-label {
             font-size: 0.95em;
             color: #aaa;
         }
-        .status-label strong {
-            color: #e8e0d8;
-            font-weight: 400;
-        }
+        .status-label strong { color: #e8e0d8; font-weight: 400; }
 
         .badge-work {
             background: rgba(67, 181, 129, 0.07);
@@ -186,7 +187,7 @@
         .section-title {
             font-size: 2em;
             font-weight: 700;
-            margin: 55px 0 22px;
+            margin: 50px 0 22px;
             display: flex;
             align-items: center;
             gap: 12px;
@@ -205,15 +206,15 @@
         /* ===== SKILLS ===== */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 10px;
         }
 
         .skill-card {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.04);
-            border-radius: 14px;
-            padding: 14px 20px;
+            border-radius: 12px;
+            padding: 12px 18px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -230,22 +231,31 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            min-width: 0;
         }
+
         .skill-card .left .icon {
             font-size: 1.3em;
             width: 28px;
             text-align: center;
+            flex-shrink: 0;
         }
+
         .skill-card .left .name {
             font-weight: 400;
-            font-size: 0.95em;
+            font-size: 0.92em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .skill-card .right {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
+            flex-shrink: 0;
         }
+
         .skill-card .bar {
             width: 70px;
             height: 4px;
@@ -253,6 +263,7 @@
             border-radius: 4px;
             overflow: hidden;
         }
+
         .skill-card .bar .fill {
             height: 100%;
             background: linear-gradient(90deg, #a89888, #e8e0d8);
@@ -260,6 +271,7 @@
             transition: 1.2s cubic-bezier(0.4, 0, 0.2, 1);
             width: 0%;
         }
+
         .skill-card .percent {
             font-size: 0.75em;
             color: #666;
@@ -377,21 +389,28 @@
         /* ===== RESPONSIVE ===== */
         @media (max-width: 700px) {
             .hero .name {
-                font-size: 3.4em;
+                font-size: 3em;
+            }
+            .hero-top {
+                gap: 14px;
+            }
+            .hero .avatar {
+                width: 70px;
+                height: 70px;
             }
             .status-box {
                 flex-direction: column;
-                padding: 16px 20px;
-                gap: 14px;
+                padding: 14px 18px;
+                gap: 12px;
             }
             .skills-grid {
                 grid-template-columns: 1fr;
             }
             .section-title {
-                font-size: 1.6em;
+                font-size: 1.5em;
             }
             .about-text {
-                padding: 20px;
+                padding: 18px;
             }
             .social-links {
                 justify-content: center;
@@ -410,9 +429,14 @@
 
         <!-- ===== HERO ===== -->
         <div class="hero">
-            <div class="name">Demon</div>
-            <div class="title">Full Stack · Minecraft Expert</div>
-            <div class="flag">🇩🇿 Algeria · 15 Nov 2011</div>
+            <div class="hero-top">
+                <img class="avatar" src="https://cdn.discordapp.com/attachments/1491039082380394629/1517838732043227286/download.jpg?ex=6a37bcf9&is=6a366b79&hm=9fea516e57d5673cfaffedf9cea563f7498b1bb690075d5802db11f2ca8a422b&" alt="Demon">
+                <div>
+                    <div class="name">Demon</div>
+                    <div class="title">Full Stack · Minecraft Expert</div>
+                    <div class="flag">🇩🇿 Algeria · 15 Nov 2011</div>
+                </div>
+            </div>
 
             <!-- STATUS MANUAL -->
             <div class="status-box">
@@ -477,7 +501,7 @@
         // اختر من: 'online' , 'idle' , 'dnd' , 'offline'
         const MANUAL_STATUS = 'online';
 
-        // ---------- المهارات ----------
+        // ---------- المهارات (عدّل أو أضف) ----------
         const skillsData = [
             { name: 'Node.js & Discord.js', percent: 95, icon: '🟢' },
             { name: 'Minecraft Configuration', percent: 100, icon: '⛏️' },
@@ -491,7 +515,7 @@
             { name: 'Lua (FiveM / Roblox)', percent: 65, icon: '🌙' }
         ];
 
-        // ---------- المشاريع ----------
+        // ---------- المشاريع (عدّل أو أضف) ----------
         const projectsData = [
             { icon: '⚙️', title: 'Minecraft Servers', desc: 'High-performance setups' },
             { icon: '🤖', title: 'Discord Bots', desc: 'Advanced Discord.js bots' },
@@ -570,8 +594,7 @@
         });
 
         // ----- تأثيرات إضافية -----
-        // تكبير المؤشر عند المرور على العناصر
-        document.querySelectorAll('.skill-card, .project-card, .social-link, .about-text, .status-box').forEach(el => {
+        document.querySelectorAll('.skill-card, .project-card, .social-link, .about-text, .status-box, .avatar').forEach(el => {
             el.addEventListener('mouseenter', () => {
                 cursor.style.width = '26px';
                 cursor.style.height = '26px';
