@@ -5,182 +5,249 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Demon | Developer</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap');
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
-            background: #0d0d0d;
+            background: #0b0b0b;
             color: #e8e0d8;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Outfit', sans-serif;
             cursor: none;
             overflow-x: hidden;
         }
 
+        /* خلفية متطورة */
         .bg {
             position: fixed;
             inset: 0;
-            background: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #0d0d0d 100%);
+            background:
+                radial-gradient(circle at 20% 30%, rgba(200, 180, 160, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(200, 180, 160, 0.03) 0%, transparent 50%),
+                #0b0b0b;
             z-index: -2;
         }
 
         .bg-grid {
             position: fixed;
             inset: 0;
-            background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-            background-size: 50px 50px;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+            background-size: 60px 60px;
             z-index: -1;
         }
 
+        /* مؤشر الماوس */
         .cursor {
-            width: 20px;
-            height: 20px;
-            border: 2px solid #e8e0d8;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #c8b8a8;
             border-radius: 50%;
             position: fixed;
             pointer-events: none;
             z-index: 9999;
-            transition: 0.1s;
+            transition: 0.15s;
             mix-blend-mode: difference;
         }
 
-        .cursor-light {
-            width: 350px;
-            height: 350px;
-            background: radial-gradient(circle, rgba(232, 224, 216, 0.05) 0%, transparent 70%);
+        .cursor-glow {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(200, 180, 160, 0.04) 0%, transparent 70%);
             border-radius: 50%;
             position: fixed;
             pointer-events: none;
             z-index: 9998;
             transform: translate(-50%, -50%);
+            transition: 0.2s;
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 30px 24px 60px;
         }
 
-        /* HEADER */
+        /* ===== HERO ===== */
         .hero {
             text-align: center;
-            padding: 60px 0 40px;
-            border-bottom: 1px solid rgba(255,255,255,0.04);
+            padding: 50px 0 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            position: relative;
         }
 
         .hero .name {
-            font-size: 5em;
+            font-size: 5.5em;
             font-weight: 900;
-            letter-spacing: 4px;
-            background: linear-gradient(135deg, #e8e0d8 0%, #a89888 100%);
+            letter-spacing: 6px;
+            background: linear-gradient(135deg, #e8e0d8 0%, #a89888 50%, #e8e0d8 100%);
+            background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            animation: shimmer 5s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: 0% center;
+            }
+            100% {
+                background-position: 200% center;
+            }
         }
 
         .hero .title {
-            font-size: 1.2em;
+            font-size: 1.3em;
             color: #888;
             font-weight: 300;
-            letter-spacing: 3px;
-            margin-top: 6px;
+            letter-spacing: 4px;
+            margin-top: 2px;
         }
 
-        .hero .location {
+        .hero .flag {
+            font-size: 0.95em;
             color: #666;
-            font-size: 0.9em;
             margin-top: 4px;
+            letter-spacing: 1px;
         }
 
-        /* STATUS */
+        /* ===== STATUS MANUAL ===== */
         .status-box {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 16px;
-            padding: 20px 30px;
-            margin: 30px auto;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            padding: 18px 32px;
+            margin: 25px auto 0;
             display: inline-flex;
             align-items: center;
-            gap: 25px;
+            gap: 28px;
             flex-wrap: wrap;
             justify-content: center;
+            backdrop-filter: blur(6px);
         }
 
         .status-dot {
-            width: 14px;
-            height: 14px;
+            width: 13px;
+            height: 13px;
             border-radius: 50%;
             display: inline-block;
             transition: 0.3s;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
         }
 
-        .status-online { background: #43b581; box-shadow: 0 0 20px rgba(67,181,129,0.3); }
-        .status-idle { background: #faa61a; box-shadow: 0 0 20px rgba(250,166,26,0.3); }
-        .status-dnd { background: #f04747; box-shadow: 0 0 20px rgba(240,71,71,0.3); }
-        .status-offline { background: #747f8d; }
+        .status-online {
+            background: #43b581;
+            box-shadow: 0 0 25px rgba(67, 181, 129, 0.25);
+        }
+        .status-idle {
+            background: #faa61a;
+            box-shadow: 0 0 25px rgba(250, 166, 26, 0.25);
+        }
+        .status-dnd {
+            background: #f04747;
+            box-shadow: 0 0 25px rgba(240, 71, 71, 0.25);
+        }
+        .status-offline {
+            background: #747f8d;
+        }
 
         .status-label {
             font-size: 0.95em;
             color: #aaa;
         }
-        .status-label strong { color: #e8e0d8; font-weight: 400; }
+        .status-label strong {
+            color: #e8e0d8;
+            font-weight: 400;
+        }
 
         .badge-work {
-            background: rgba(67,181,129,0.08);
-            border: 1px solid rgba(67,181,129,0.15);
-            padding: 4px 18px;
+            background: rgba(67, 181, 129, 0.07);
+            border: 1px solid rgba(67, 181, 129, 0.12);
+            padding: 4px 20px;
             border-radius: 30px;
             font-size: 0.8em;
             color: #43b581;
+            letter-spacing: 0.5px;
+            transition: 0.3s;
         }
 
         .badge-work.idle {
-            background: rgba(250,166,26,0.08);
-            border-color: rgba(250,166,26,0.15);
+            background: rgba(250, 166, 26, 0.07);
+            border-color: rgba(250, 166, 26, 0.12);
             color: #faa61a;
         }
 
-        /* SKILLS */
+        /* ===== أقسام ===== */
         .section-title {
-            font-size: 1.8em;
+            font-size: 2em;
             font-weight: 700;
-            margin: 50px 0 25px;
+            margin: 55px 0 22px;
             display: flex;
             align-items: center;
             gap: 12px;
-        }
-        .section-title span {
-            font-size: 0.5em;
-            font-weight: 300;
-            color: #555;
+            letter-spacing: 0.5px;
         }
 
+        .section-title .tag {
+            font-size: 0.45em;
+            font-weight: 300;
+            color: #555;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 2px 14px;
+            border-radius: 30px;
+        }
+
+        /* ===== SKILLS ===== */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
             gap: 12px;
         }
 
         .skill-card {
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.04);
-            border-radius: 12px;
-            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 14px;
+            padding: 14px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: 0.2s;
+            transition: 0.25s;
         }
+
         .skill-card:hover {
-            background: rgba(255,255,255,0.04);
-            border-color: rgba(255,255,255,0.08);
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
         }
-        .skill-card .left { display: flex; align-items: center; gap: 10px; }
-        .skill-card .left .icon { font-size: 1.4em; }
-        .skill-card .left .name { font-weight: 400; }
-        .skill-card .right { display: flex; align-items: center; gap: 12px; }
+
+        .skill-card .left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .skill-card .left .icon {
+            font-size: 1.3em;
+            width: 28px;
+            text-align: center;
+        }
+        .skill-card .left .name {
+            font-weight: 400;
+            font-size: 0.95em;
+        }
+
+        .skill-card .right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
         .skill-card .bar {
-            width: 80px;
+            width: 70px;
             height: 4px;
             background: #1a1a1a;
             border-radius: 4px;
@@ -190,230 +257,337 @@
             height: 100%;
             background: linear-gradient(90deg, #a89888, #e8e0d8);
             border-radius: 4px;
-            transition: 1s;
+            transition: 1.2s cubic-bezier(0.4, 0, 0.2, 1);
             width: 0%;
         }
-        .skill-card .percent { font-size: 0.8em; color: #666; min-width: 35px; text-align: right; }
+        .skill-card .percent {
+            font-size: 0.75em;
+            color: #666;
+            min-width: 34px;
+            text-align: right;
+            font-weight: 300;
+        }
 
-        /* PROJECTS */
+        /* ===== PROJECTS ===== */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
             gap: 16px;
         }
 
         .project-card {
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.04);
-            border-radius: 14px;
-            padding: 24px 16px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 16px;
+            padding: 22px 14px;
             text-align: center;
-            transition: 0.2s;
+            transition: 0.25s;
         }
-        .project-card:hover {
-            background: rgba(255,255,255,0.04);
-            border-color: rgba(255,255,255,0.08);
-            transform: translateY(-3px);
-        }
-        .project-card .icon { font-size: 2.6em; margin-bottom: 8px; }
-        .project-card .title { font-weight: 600; font-size: 1em; }
-        .project-card .desc { font-size: 0.8em; color: #666; margin-top: 4px; }
 
+        .project-card:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.08);
+            transform: translateY(-4px);
+        }
+
+        .project-card .icon {
+            font-size: 2.4em;
+            margin-bottom: 6px;
+        }
+        .project-card .title {
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+        .project-card .desc {
+            font-size: 0.75em;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        /* ===== ABOUT ===== */
+        .about-text {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 16px;
+            padding: 28px 32px;
+            max-width: 750px;
+            color: #bbb;
+            font-weight: 300;
+            line-height: 1.8;
+            letter-spacing: 0.3px;
+        }
+
+        .about-text strong {
+            color: #e8e0d8;
+            font-weight: 500;
+        }
+
+        .about-text .highlight {
+            color: #c8b8a8;
+        }
+
+        /* ===== SOCIAL ===== */
+        .social-links {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .social-link {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 40px;
+            padding: 10px 22px;
+            color: #aaa;
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: 0.25s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .social-link:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.12);
+            color: #e8e0d8;
+            transform: translateY(-2px);
+        }
+
+        .social-link .sicon {
+            font-size: 1.2em;
+        }
+
+        /* ===== FOOTER ===== */
         footer {
             text-align: center;
-            padding: 40px 20px;
+            padding: 45px 20px 20px;
             color: #444;
             font-size: 0.8em;
-            border-top: 1px solid rgba(255,255,255,0.03);
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
             margin-top: 50px;
+            letter-spacing: 0.5px;
         }
 
+        footer .heart {
+            color: #c0392b;
+        }
+
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 700px) {
-            .hero .name { font-size: 3.2em; }
-            .status-box { flex-direction: column; padding: 18px 20px; }
-            .skills-grid { grid-template-columns: 1fr; }
+            .hero .name {
+                font-size: 3.4em;
+            }
+            .status-box {
+                flex-direction: column;
+                padding: 16px 20px;
+                gap: 14px;
+            }
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            .section-title {
+                font-size: 1.6em;
+            }
+            .about-text {
+                padding: 20px;
+            }
+            .social-links {
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
 
-<div class="bg"></div>
-<div class="bg-grid"></div>
-<div class="cursor-light" id="cursorLight"></div>
-<div class="cursor" id="cursor"></div>
+    <div class="bg"></div>
+    <div class="bg-grid"></div>
+    <div class="cursor-glow" id="cursorGlow"></div>
+    <div class="cursor" id="cursor"></div>
 
-<div class="container">
+    <div class="container">
 
-    <!-- HERO -->
-    <div class="hero">
-        <div class="name">Demon</div>
-        <div class="title">Full Stack · Minecraft Expert</div>
-        <div class="location">🇩🇿 Algeria · 15 Nov 2011</div>
+        <!-- ===== HERO ===== -->
+        <div class="hero">
+            <div class="name">Demon</div>
+            <div class="title">Full Stack · Minecraft Expert</div>
+            <div class="flag">🇩🇿 Algeria · 15 Nov 2011</div>
 
-        <!-- STATUS -->
-        <div class="status-box" id="statusBox">
-            <div style="display:flex; align-items:center; gap:8px;">
-                <span class="status-dot status-offline" id="statusDot"></span>
-                <span class="status-label" id="statusText">⏳ جاري التحقق...</span>
+            <!-- STATUS MANUAL -->
+            <div class="status-box">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <span class="status-dot status-online" id="statusDot"></span>
+                    <span class="status-label" id="statusText"><strong>Demon</strong> · 🟢 Online</span>
+                </div>
+                <span class="badge-work" id="workBadge">⚡ Working on Projects</span>
             </div>
-            <span class="badge-work" id="workBadge">⚡ Working on Projects</span>
         </div>
+
+        <!-- ===== ABOUT ===== -->
+        <div class="section-title">
+            👤 About Me
+            <span class="tag">من أنا</span>
+        </div>
+        <div class="about-text">
+            I'm <strong>Demon</strong>, a passionate developer from Algeria with a deep love for <span class="highlight">Minecraft server architecture</span>, <span class="highlight">full-stack web development</span>, and <span class="highlight">Discord bot engineering</span>.
+            <br><br>
+            I believe in <strong>clean code</strong>, <strong>real solutions</strong>, and <strong>no fluff</strong>. Whether it's configuring high-performance servers or building interactive web apps — I get it done.
+            <br><br>
+            🎯 Currently working on: <strong>Next-gen Minecraft plugins & scalable web systems</strong>.
+        </div>
+
+        <!-- ===== SKILLS ===== -->
+        <div class="section-title">
+            🛠️ Skills
+            <span class="tag">قابلة للتعديل</span>
+        </div>
+        <div class="skills-grid" id="skillsGrid"></div>
+
+        <!-- ===== PROJECTS ===== -->
+        <div class="section-title">
+            🚀 Projects
+            <span class="tag">أعمالي</span>
+        </div>
+        <div class="projects-grid" id="projectsGrid"></div>
+
+        <!-- ===== SOCIAL ===== -->
+        <div class="section-title">
+            🌐 Connect
+            <span class="tag">تواصل</span>
+        </div>
+        <div class="social-links">
+            <a href="#" class="social-link"><span class="sicon">🐦</span> Twitter</a>
+            <a href="#" class="social-link"><span class="sicon">💬</span> Discord</a>
+            <a href="#" class="social-link"><span class="sicon">🐙</span> GitHub</a>
+            <a href="#" class="social-link"><span class="sicon">📺</span> YouTube</a>
+        </div>
+
+        <footer>
+            © 2026 Demon · Built with <span class="heart">❤</span> and ☕ · No sugarcoating, just code.
+        </footer>
     </div>
 
-    <!-- SKILLS -->
-    <div class="section-title">🛠️ Skills <span>قابلة للتعديل من الكود</span></div>
-    <div class="skills-grid" id="skillsGrid"></div>
+    <script>
+        // ============================================================
+        // 🔧 ====== كل التعديلات من هنا ======
+        // ============================================================
 
-    <!-- PROJECTS -->
-    <div class="section-title">🚀 Projects</div>
-    <div class="projects-grid" id="projectsGrid"></div>
+        // ---------- الحالة اليدوية ----------
+        // اختر من: 'online' , 'idle' , 'dnd' , 'offline'
+        const MANUAL_STATUS = 'online';
 
-    <footer>© 2026 Demon · Built with ❤️</footer>
-</div>
+        // ---------- المهارات ----------
+        const skillsData = [
+            { name: 'Node.js & Discord.js', percent: 95, icon: '🟢' },
+            { name: 'Minecraft Configuration', percent: 100, icon: '⛏️' },
+            { name: 'Full Stack Web', percent: 90, icon: '🌐' },
+            { name: 'Python', percent: 85, icon: '🐍' },
+            { name: 'JavaScript / TypeScript', percent: 92, icon: '📜' },
+            { name: 'React & Vue.js', percent: 80, icon: '⚛️' },
+            { name: 'PHP & MySQL', percent: 75, icon: '🐘' },
+            { name: 'C# / .NET', percent: 70, icon: '🔷' },
+            { name: 'Java (Spigot/Paper)', percent: 88, icon: '☕' },
+            { name: 'Lua (FiveM / Roblox)', percent: 65, icon: '🌙' }
+        ];
 
-<script>
-    // ============================================================
-    // 🔧 ====== إعدادات البوت والتوكن هنا ======
-    // ============================================================
+        // ---------- المشاريع ----------
+        const projectsData = [
+            { icon: '⚙️', title: 'Minecraft Servers', desc: 'High-performance setups' },
+            { icon: '🤖', title: 'Discord Bots', desc: 'Advanced Discord.js bots' },
+            { icon: '🌐', title: 'Full Stack Web', desc: 'Responsive apps & APIs' },
+            { icon: '🎮', title: 'Game Dev', desc: 'Interactive experiences' },
+            { icon: '🔧', title: 'Custom Plugins', desc: 'Spigot / Paper plugins' },
+            { icon: '📊', title: 'Economy Systems', desc: 'Vault & CoinsEngine' }
+        ];
 
-    // ⚡ ضع توكن البوت هنا (Bot Token)
-    const BOT_TOKEN = 'MTUxMzE1NDc1NTkwNjc2NDgxMA.GJeYbU.iQPRnJpZdFoeSUI10vKDOK6RkSesr_Q1WfUPNM';
+        // ============================================================
+        // ====== كود العرض (لا تغير شيء هنا) ======
+        // ============================================================
 
-    // 🆔 ضع اليوزر آيدي حق حسابك الشخصي هنا
-    const USER_ID = '1374386425746952265';
+        // ----- المؤشر -----
+        const cursor = document.getElementById('cursor');
+        const glow = document.getElementById('cursorGlow');
+        document.addEventListener('mousemove', e => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            glow.style.left = e.clientX + 'px';
+            glow.style.top = e.clientY + 'px';
+        });
 
-    // ============================================================
-    // المهارات (عدّل أو أضف من هنا)
-    // ============================================================
-    const skillsData = [
-        { name: 'Node.js & Discord.js', percent: 95, icon: '🟢' },
-        { name: 'Minecraft Config', percent: 100, icon: '⛏️' },
-        { name: 'Full Stack Web', percent: 90, icon: '🌐' },
-        { name: 'Python', percent: 85, icon: '🐍' },
-        { name: 'JavaScript/TS', percent: 92, icon: '📜' },
-        { name: 'React & Vue', percent: 80, icon: '⚛️' },
-        { name: 'PHP & MySQL', percent: 75, icon: '🐘' },
-        { name: 'C# / .NET', percent: 70, icon: '🔷' },
-        { name: 'Java (Spigot/Paper)', percent: 88, icon: '☕' },
-        { name: 'Lua (FiveM)', percent: 65, icon: '🌙' }
-    ];
+        // ----- الحالة -----
+        const dot = document.getElementById('statusDot');
+        const statusText = document.getElementById('statusText');
+        const workBadge = document.getElementById('workBadge');
 
-    // ============================================================
-    // المشاريع (عدّل من هنا)
-    // ============================================================
-    const projectsData = [
-        { icon: '⚙️', title: 'Minecraft Servers', desc: 'High-performance setups' },
-        { icon: '🤖', title: 'Discord Bots', desc: 'Advanced Discord.js bots' },
-        { icon: '🌐', title: 'Full Stack Web', desc: 'Apps & APIs' },
-        { icon: '🎮', title: 'Game Dev', desc: 'Interactive experiences' },
-        { icon: '🔧', title: 'Plugins', desc: 'Custom Spigot plugins' },
-        { icon: '📊', title: 'Economy Systems', desc: 'Vault & CoinsEngine' }
-    ];
+        const statusMap = {
+            online: { class: 'status-online', label: '🟢 Online', badge: '⚡ Working on Projects', badgeClass: '' },
+            idle: { class: 'status-idle', label: '🟡 Busy Now', badge: '🟡 Busy Now', badgeClass: 'idle' },
+            dnd: { class: 'status-dnd', label: '🔴 Do Not Disturb', badge: '⛔ Do Not Disturb', badgeClass: '' },
+            offline: { class: 'status-offline', label: '⚫ Offline', badge: '💤 Offline', badgeClass: '' }
+        };
 
-    // ============================================================
-    // كود العرض (ما تحتاج تلمسه)
-    // ============================================================
-
-    // cursor
-    const cursor = document.getElementById('cursor');
-    const light = document.getElementById('cursorLight');
-    document.addEventListener('mousemove', e => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-        light.style.left = e.clientX + 'px';
-        light.style.top = e.clientY + 'px';
-    });
-
-    // skills
-    const grid = document.getElementById('skillsGrid');
-    skillsData.forEach(s => {
-        const card = document.createElement('div');
-        card.className = 'skill-card';
-        card.innerHTML = `
-            <div class="left">
-                <span class="icon">${s.icon}</span>
-                <span class="name">${s.name}</span>
-            </div>
-            <div class="right">
-                <div class="bar"><div class="fill" style="width:0%"></div></div>
-                <span class="percent">${s.percent}%</span>
-            </div>
-        `;
-        grid.appendChild(card);
-        setTimeout(() => {
-            card.querySelector('.fill').style.width = s.percent + '%';
-        }, 200);
-    });
-
-    // projects
-    const pGrid = document.getElementById('projectsGrid');
-    projectsData.forEach(p => {
-        const card = document.createElement('div');
-        card.className = 'project-card';
-        card.innerHTML = `
-            <div class="icon">${p.icon}</div>
-            <div class="title">${p.title}</div>
-            <div class="desc">${p.desc}</div>
-        `;
-        pGrid.appendChild(card);
-    });
-
-    // ============================================================
-    // نظام فحص الحالة عبر البوت
-    // ============================================================
-    const dot = document.getElementById('statusDot');
-    const statusText = document.getElementById('statusText');
-    const workBadge = document.getElementById('workBadge');
-
-    async function fetchStatus() {
-        if (!BOT_TOKEN || BOT_TOKEN === 'ضع_توكن_البوت_هنا') {
-            statusText.innerHTML = '⚠️ <strong>يرجى ضبط توكن البوت</strong>';
-            return;
-        }
-        if (!USER_ID || USER_ID === 'ضع_اليوزر_آيدي_هنا') {
-            statusText.innerHTML = '⚠️ <strong>يرجى ضبط اليوزر آيدي</strong>';
-            return;
+        const status = statusMap[MANUAL_STATUS] || statusMap.offline;
+        dot.className = 'status-dot ' + status.class;
+        statusText.innerHTML = `<strong>Demon</strong> · ${status.label}`;
+        workBadge.textContent = status.badge;
+        if (status.badgeClass) {
+            workBadge.classList.add(status.badgeClass);
         }
 
-        try {
-            const res = await fetch(`https://discord.com/api/v9/users/${USER_ID}`, {
-                headers: { 'Authorization': `Bot ${BOT_TOKEN}` }
+        // ----- المهارات -----
+        const grid = document.getElementById('skillsGrid');
+        skillsData.forEach(s => {
+            const card = document.createElement('div');
+            card.className = 'skill-card';
+            card.innerHTML = `
+                <div class="left">
+                    <span class="icon">${s.icon}</span>
+                    <span class="name">${s.name}</span>
+                </div>
+                <div class="right">
+                    <div class="bar"><div class="fill" style="width:0%"></div></div>
+                    <span class="percent">${s.percent}%</span>
+                </div>
+            `;
+            grid.appendChild(card);
+            setTimeout(() => {
+                card.querySelector('.fill').style.width = s.percent + '%';
+            }, 200);
+        });
+
+        // ----- المشاريع -----
+        const pGrid = document.getElementById('projectsGrid');
+        projectsData.forEach(p => {
+            const card = document.createElement('div');
+            card.className = 'project-card';
+            card.innerHTML = `
+                <div class="icon">${p.icon}</div>
+                <div class="title">${p.title}</div>
+                <div class="desc">${p.desc}</div>
+            `;
+            pGrid.appendChild(card);
+        });
+
+        // ----- تأثيرات إضافية -----
+        // تكبير المؤشر عند المرور على العناصر
+        document.querySelectorAll('.skill-card, .project-card, .social-link, .about-text, .status-box').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.width = '26px';
+                cursor.style.height = '26px';
+                cursor.style.borderColor = '#c8b8a8';
+                glow.style.width = '450px';
+                glow.style.height = '450px';
             });
-            if (!res.ok) throw new Error('فشل');
-
-            const data = await res.json();
-            const status = data.presence?.status || 'offline';
-
-            // تحديث النقطة
-            dot.className = 'status-dot';
-            let label = '';
-            switch (status) {
-                case 'online': dot.classList.add('status-online'); label = '🟢 أونلاين'; break;
-                case 'idle': dot.classList.add('status-idle'); label = '🟡 Busy Now (مشغول)'; break;
-                case 'dnd': dot.classList.add('status-dnd'); label = '🔴 لا تزعج'; break;
-                default: dot.classList.add('status-offline'); label = '⚫ أوفلاين';
-            }
-            statusText.innerHTML = `<strong>${data.username}</strong> · ${label}`;
-
-            // تحديث شارة العمل
-            if (status === 'idle') {
-                workBadge.textContent = '🟡 Busy Now';
-                workBadge.className = 'badge-work idle';
-            } else {
-                workBadge.textContent = '⚡ Working on Projects';
-                workBadge.className = 'badge-work';
-            }
-
-        } catch (e) {
-            dot.className = 'status-dot status-offline';
-            statusText.innerHTML = '⚠️ <strong>خطأ</strong> · تأكد من التوكن والآيدي';
-        }
-    }
-
-    // فحص أولي ثم كل 5 ثواني
-    fetchStatus();
-    setInterval(fetchStatus, 5000);
-</script>
+            el.addEventListener('mouseleave', () => {
+                cursor.style.width = '16px';
+                cursor.style.height = '16px';
+                cursor.style.borderColor = '#c8b8a8';
+                glow.style.width = '300px';
+                glow.style.height = '300px';
+            });
+        });
+    </script>
 
 </body>
 </html>
