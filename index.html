@@ -1,82 +1,90 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Demon | Portfolio</title>
+    <title>Demon | Full Stack & Minecraft Expert</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&display=swap');
         
         body {
-            background: #1a1a1a;
-            color: #e0d8ce;
-            font-family: 'Cairo', sans-serif;
+            background-color: #1a1a1a;
+            color: #d1c7b7;
+            font-family: 'Outfit', sans-serif;
             margin: 0;
-            cursor: url('https://cdn.cursors-4u.com/user/10/10-2165.cur'), auto;
+            overflow-x: hidden;
+            cursor: none; /* إخفاء الماوس الأصلي */
         }
 
-        header {
-            position: fixed; top: 0; width: 100%; padding: 20px;
-            background: rgba(30, 30, 30, 0.8); backdrop-filter: blur(10px);
-            display: flex; justify-content: center; gap: 20px; z-index: 1000;
+        /* خلفية المربعات */
+        .grid-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(#333 1px, transparent 1px);
+            background-size: 30px 30px; z-index: -1;
         }
 
-        section { padding: 100px 20px; text-align: center; }
+        /* ضوء يتبع الماوس */
+        #cursor-light {
+            position: fixed; width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(209, 199, 183, 0.15) 0%, transparent 70%);
+            border-radius: 50%; pointer-events: none; z-index: 9999;
+            transform: translate(-50%, -50%);
+        }
 
-        .glass-card {
+        /* مؤشر الماوس */
+        .custom-cursor {
+            width: 15px; height: 15px; border: 2px solid #d1c7b7;
+            border-radius: 50%; position: fixed; pointer-events: none; z-index: 10000;
+        }
+
+        header { padding: 40px; text-align: center; }
+        .glass {
             background: rgba(224, 216, 206, 0.05);
             backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 30px; border-radius: 20px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.3);
-            max-width: 800px; margin: auto;
+            border: 1px solid rgba(209, 199, 183, 0.2);
+            padding: 40px; border-radius: 20px;
+            max-width: 700px; margin: 20px auto;
         }
 
-        .skill-bar {
-            background: #333; height: 10px; border-radius: 5px;
-            margin: 10px 0; overflow: hidden;
-        }
-        .skill-fill { height: 100%; background: linear-gradient(90deg, #b8a99a, #d1c7b7); width: 0; transition: 2s; }
-
-        h2 { border-bottom: 2px solid #b8a99a; display: inline-block; padding-bottom: 10px; }
+        h1 { font-size: 3em; margin: 0; }
+        .skill-bar { height: 8px; background: #333; border-radius: 5px; margin: 15px 0; }
+        .fill { height: 100%; background: #d1c7b7; width: 0; transition: 2s; border-radius: 5px; }
     </style>
 </head>
 <body>
 
+<div class="grid-bg"></div>
+<div id="cursor-light"></div>
+<div class="custom-cursor" id="cursor"></div>
+
 <header>
-    <a href="#home" style="color:white; text-decoration:none;">الرئيسية</a>
-    <a href="#skills" style="color:white; text-decoration:none;">الخبرات</a>
-    <a href="#projects" style="color:white; text-decoration:none;">المشاريع</a>
+    <div class="glass">
+        <h1>Demon</h1>
+        <p>Hi, I'm Rami, born in Algeria on Nov 15, 2011.</p>
+        <p>A passionate developer with years of experience in various programming languages. I specialize in Minecraft server architecture, configuration, and high-performance full-stack web development.</p>
+    </div>
 </header>
 
-<section id="home">
-    <div class="glass-card">
-        <h1>Demon</h1>
-        <p>Full Stack Developer & Minecraft Expert</p>
-    </div>
-</section>
-
-<section id="skills">
-    <h2>خبراتي</h2>
-    <div class="glass-card" style="text-align: right;">
-        <p>Node.js</p>
-        <div class="skill-bar"><div class="skill-fill" style="width: 90%;"></div></div>
-        <p>Discord.js</p>
-        <div class="skill-bar"><div class="skill-fill" style="width: 95%;"></div></div>
-        <p>Minecraft Configuration</p>
-        <div class="skill-bar"><div class="skill-fill" style="width: 100%;"></div></div>
-    </div>
-</section>
-
-<section id="projects">
-    <h2>المشاريع الحالية</h2>
-    <div class="glass-card">
-        <p>جاري العمل على مشاريع برمجية خاصة...</p>
+<section style="max-width: 700px; margin: auto; padding: 20px;">
+    <div class="glass">
+        <h2>Technical Expertise</h2>
+        <p>Node.js & Discord.js</p>
+        <div class="skill-bar"><div class="fill" style="width: 95%;"></div></div>
+        <p>Minecraft Configuration & Setup</p>
+        <div class="skill-bar"><div class="fill" style="width: 100%;"></div></div>
+        <p>Full Stack Development</p>
+        <div class="skill-bar"><div class="fill" style="width: 90%;"></div></div>
     </div>
 </section>
 
 <script>
-    // تفعيل تأثيرات الحركة عند التحميل
-    window.onload = () => document.querySelectorAll('.skill-fill').forEach(el => el.style.width = el.style.width);
+    const cursor = document.getElementById('cursor');
+    const light = document.getElementById('cursor-light');
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+        light.style.left = e.clientX + 'px';
+        light.style.top = e.clientY + 'px';
+    });
 </script>
 </body>
 </html>
