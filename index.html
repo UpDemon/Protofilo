@@ -151,7 +151,7 @@
             75% { transform: translate(30px, -20px) scale(1.05); }
         }
 
-        /* ===== كورسر سريع ===== */
+        /* ===== كورسر سريع جداً (بدون أي تأخير) ===== */
         .cursor {
             width: 20px;
             height: 20px;
@@ -162,7 +162,8 @@
             z-index: 9999;
             mix-blend-mode: difference;
             will-change: transform, left, top;
-            transition: width 0.2s, height 0.2s, border-color 0.2s;
+            /* تم حذف transition بالكامل */
+            transform: translate(-50%, -50%);
         }
 
         [data-theme="light"] .cursor {
@@ -179,22 +180,26 @@
             z-index: 10000;
             mix-blend-mode: difference;
             will-change: transform, left, top;
+            /* تم حذف transition بالكامل */
+            transform: translate(-50%, -50%);
         }
 
         [data-theme="light"] .cursor-dot {
             background: #8a7a6a;
         }
 
-        /* ===== Cursor Trail Effect ===== */
+        /* ===== Cursor Trail (أثر خفيف جداً) ===== */
         .trail {
             position: fixed;
             width: 6px;
             height: 6px;
             border-radius: 50%;
-            background: rgba(201, 168, 124, 0.2);
+            background: rgba(201, 168, 124, 0.15);
             pointer-events: none;
             z-index: 9998;
-            transition: all 0.1s ease;
+            will-change: transform, left, top;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.5s ease;
         }
 
         @media (hover: none) and (pointer: coarse) {
@@ -1325,8 +1330,7 @@
                 items: [
                     'Minecraft Network System',
                     'Discord Bot Dashboard',
-                    'Custom Plugin Suite',
-                    'ScoreBoard Plugin'
+                    'Custom Plugin Suite'
                 ]
             },
             {
@@ -1356,25 +1360,24 @@
         // ====== كود التشغيل ======
         // ============================================================
 
-        // ----- كورسر -----
+        // ----- كورسر سريع جداً (باستخدام requestAnimationFrame) -----
         const cursor = document.getElementById('cursor');
         const dot = document.getElementById('cursorDot');
         let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
 
+        // تتبع الماوس مباشرة
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
-        });
-
-        function updateCursor() {
+            // تحديث فوري للكورسر
             cursor.style.left = mouseX + 'px';
             cursor.style.top = mouseY + 'px';
             dot.style.left = mouseX + 'px';
             dot.style.top = mouseY + 'px';
-            requestAnimationFrame(updateCursor);
-        }
-        updateCursor();
+        });
 
+        // تأثيرات الـ Hover
         document.querySelectorAll('a, button, .skill-card, .project-card, .social-link, .dot-nav, .working-card').forEach(el => {
             el.addEventListener('mouseenter', () => {
                 cursor.style.width = '40px';
